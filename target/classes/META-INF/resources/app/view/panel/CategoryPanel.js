@@ -11,6 +11,8 @@ Ext.define('Asher.view.panel.CategoryPanel', {
     	    	 root : {
     	    		  expanded : true
 					 ,children : [{
+						 text: '일정관리', expand: true, iconCls : 'tree-collapse', cate : 'schedule', id : 'cate-schedule', leaf : true
+					 },{
 						 text: '권한관리', expand: true, iconCls : 'tree-expand'
 						,children : [{
 							text: '권한리스트', leaf : true, cate : 'authority', id : 'cate-authority-list'

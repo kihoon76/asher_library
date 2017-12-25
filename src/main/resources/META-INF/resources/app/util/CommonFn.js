@@ -1,7 +1,7 @@
 Ext.define('Asher.util.CommonFn', {
 	 singleton : true
     ,getFullUrl : function(url) {
-    	var fullUrl = ASher.util.Constants.context;
+    	var fullUrl = Asher.util.Constants.context;
     	if(!Ext.isEmpty(url)) {
     		if(url.indexOf('/') != 0) {
     			fullUrl += '/' + url;

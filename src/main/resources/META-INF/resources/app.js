@@ -38,7 +38,8 @@ Ext.application({
    ,appFolder: '/resources/app'
    ,autoCreateViewport: true
    ,controllers : [
-        'Asher.controller.LogController'
+        'Asher.controller.LogController',
+        'Asher.controller.ScheduleController'
    ]
    ,launch:function(){
 	   

@@ -25,6 +25,7 @@
 		<sitemesh-version>3.0.1</sitemesh-version>
 		
 		<bootstrap-version>3.3.7-1</bootstrap-version>
+		<jquery.ui-version>1.12.1</jquery.ui-version>
 	</properties>
 	
 	<dependencies>
@@ -235,6 +236,13 @@
 		    <artifactId>bootstrap</artifactId>
 		    <version>${bootstrap-version}</version>
 		</dependency> 
+		
+		<!-- jQuery Ui -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery-ui</artifactId>
+		    <version>${jquery.ui-version}</version>
+		</dependency>
 	</dependencies>
 	
     <build>
