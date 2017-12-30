@@ -6,8 +6,10 @@
 <c:set var="uri" value="${req.requestURI}" />
 <head>
 	<title></title>
+	<link rel="stylesheet" href="/resources/jquery-ui/1.12.1/jquery-ui.css" />
 	<link rel="stylesheet" href="/resources/os/fullcalendar-3.8.0/fullcalendar.min.css" />
 	<link rel="stylesheet" href="/resources/os/fullcalendar-3.8.0/fullcalendar.print.min.css" media="print"/>
+	<link rel="stylesheet" href="/resources/os/jquery-modal/css/jquery.modal.css" />
 	<style>
 	  body {
 	    margin: 40px 10px;
@@ -20,6 +22,10 @@
 	    max-width: 900px;
 	    margin: 0 auto;
 	  }
+	  
+	  .modal-text {
+	  	height:400px;
+	  }
 	</style>
 </head>
 <body>
@@ -27,6 +33,8 @@
 	<content tag="script">
 	<script type="text/javascript" src="/resources/os/fullcalendar-3.8.0/lib/moment.min.js"></script>
 	<script type="text/javascript" src="/resources/os/jquery.min.js"></script>
+	<script type="text/javascript" src="/resources/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/resources/os/jquery-modal/js/jquery.modal.min.js"></script>
 	<script type="text/javascript" src="/resources/os/fullcalendar-3.8.0/fullcalendar.min.js"></script>
 	<script type="text/javascript" src="/resources/os/fullcalendar-3.8.0/locale/ko.js"></script>
 	<script type="text/javascript" src="/resources/js/schedule.js"></script>
