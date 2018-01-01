@@ -10,23 +10,8 @@
 	<link rel="stylesheet" href="/resources/os/fullcalendar-3.8.0/fullcalendar.min.css" />
 	<link rel="stylesheet" href="/resources/os/fullcalendar-3.8.0/fullcalendar.print.min.css" media="print"/>
 	<link rel="stylesheet" href="/resources/os/jquery-modal/css/jquery.modal.css" />
-	<style>
-	  body {
-	    margin: 40px 10px;
-	    padding: 0;
-	    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-	    font-size: 14px;
-	  }
-	
-	  #calendar {
-	    max-width: 900px;
-	    margin: 0 auto;
-	  }
-	  
-	  .modal-text {
-	  	height:400px;
-	  }
-	</style>
+	<link rel="stylesheet" href="/resources/css/schedule.css" />
+
 </head>
 <body>
 	<div id="dvCalendar"></div>

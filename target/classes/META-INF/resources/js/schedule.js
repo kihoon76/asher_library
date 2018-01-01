@@ -1,6 +1,90 @@
 $(function(){
 	var modalHtml = [];
-	modalHtml.push('<input type="text" id="startDatepicker">');
+	modalHtml.push('<div class="container">');
+	modalHtml.push('	<form id="contact" action="" method="post">');
+	modalHtml.push('	    <div class="row">');
+	modalHtml.push('	    	<div class="column">');
+	modalHtml.push('	    		<fieldset>');
+	modalHtml.push('	    			<input type="text" id="startDatepicker" tabindex="1" placeholder="시작일">');
+	modalHtml.push('				</fieldset>');
+	modalHtml.push('			</div>');
+	modalHtml.push('	    	<div class="column">');
+	modalHtml.push('	    		<fieldset>');
+	modalHtml.push('	    			<input type="text" id="endDatepicker" tabindex="2" placeholder="종료일">');
+	modalHtml.push('				</fieldset>');
+	modalHtml.push('			</div>');
+	modalHtml.push('		</div>');
+	modalHtml.push('	    <fieldset>');
+	modalHtml.push('			<input type="text" tabindex="3" placeholder="제목" id="txtTitle">');
+	modalHtml.push('	    </fieldset>');
+	modalHtml.push('	    <fieldset>');
+	modalHtml.push('			<select tabindex="4" id="selTime">');
+	modalHtml.push('				<option value="">-- 사간을 설정하세요 --</option>');
+	modalHtml.push('				<option value="T00:00:00">00:00</option>');
+	modalHtml.push('				<option value="T01:00:00">01:00</option>');
+	modalHtml.push('				<option value="T02:00:00">02:00</option>');
+	modalHtml.push('				<option value="T03:00:00">03:00</option>');
+	modalHtml.push('				<option value="T04:00:00">04:00</option>');
+	modalHtml.push('				<option value="T05:00:00">05:00</option>');
+	modalHtml.push('				<option value="T06:00:00">06:00</option>');
+	modalHtml.push('				<option value="T07:00:00">07:00</option>');
+	modalHtml.push('				<option value="T08:00:00">08:00</option>');
+	modalHtml.push('				<option value="T09:00:00">09:00</option>');
+	modalHtml.push('				<option value="T10:00:00">10:00</option>');
+	modalHtml.push('				<option value="T11:00:00">11:00</option>');
+	modalHtml.push('				<option value="T12:00:00">12:00</option>');
+	modalHtml.push('				<option value="T13:00:00">13:00</option>');
+	modalHtml.push('				<option value="T14:00:00">14:00</option>');
+	modalHtml.push('				<option value="T15:00:00">15:00</option>');
+	modalHtml.push('				<option value="T16:00:00">16:00</option>');
+	modalHtml.push('				<option value="T17:00:00">17:00</option>');
+	modalHtml.push('				<option value="T18:00:00">18:00</option>');
+	modalHtml.push('				<option value="T19:00:00">19:00</option>');
+	modalHtml.push('				<option value="T20:00:00">20:00</option>');
+	modalHtml.push('				<option value="T21:00:00">21:00</option>');
+	modalHtml.push('				<option value="T22:00:00">22:00</option>');
+	modalHtml.push('				<option value="T23:00:00">23:00</option>');
+	modalHtml.push('			</select>');
+	modalHtml.push('	    </fieldset>');
+	modalHtml.push('		<fieldset>');
+	modalHtml.push('			<div class="squaredThree">');
+	modalHtml.push('				<input type="checkbox" tabindex="5" id="chkAllday">');
+	modalHtml.push('				<label for="chkAllday"></label>');
+	modalHtml.push('			</div>');
+	modalHtml.push('			<span class="allday">하루종일</span>');
+	modalHtml.push('		</fieldset>');
+	modalHtml.push('	</form>');
+	modalHtml.push('</div>');
+	
+	var _picker = {
+		dateFormat: 'yy-mm-dd'	
+	}
+	
+	function _addShedule() {
+		var source = [];
+		var title = $('#txtTitle').val();
+		var start = $('#startDatepicker').val();
+		var end = $('#endDatepicker').val();
+		var event = {
+			title: title,
+			start: start
+		};
+		var isAllDay = $('#chkAllday').is(':checked');
+		if(isAllDay) {
+			
+		}  
+		
+		if(end) {
+			event.end = end;
+		}
+		
+		if($('#selTime').val()) {
+			event.start = event.start + $('#selTime').val(); 
+		}
+		
+		source.push(event);
+		$('#dvCalendar').fullCalendar('addEventSource', source);
+	}
 	
 	function _openModal() {
 		
@@ -16,7 +100,7 @@ $(function(){
 				addClass: 'btn-light-blue', //Button Classes (btn-large | btn-small | btn-green | btn-light-green | btn-purple | btn-orange | btn-pink | btn-turquoise | btn-blue | btn-light-blue | btn-light-red | btn-red | btn-yellow | btn-white | btn-black | btn-rounded | btn-circle | btn-square | btn-disabled)
 				onClick: function(dialog) {
 					console.log(dialog);
-					alert('Look in console!');
+					_addShedule();
 					return true;
 				}
 			}, ],
@@ -46,11 +130,17 @@ $(function(){
 			}
 		});
 		
-		$( '#startDatepicker' ).datepicker({
-	        showOn: "both", 
-	        buttonImage: "button.png", 
-	        buttonImageOnly: true 
-		});
+		$('#startDatepicker' ).datepicker(_picker);
+		$('#endDatepicker' ).datepicker(_picker);
+	}
+	
+	function _save() {
+		var arr = $('#dvCalendar').fullCalendar('getEventSources');
+		
+		if(arr[0]) {
+			var sources = arr[0].rawEventDefs;
+			console.log(sources);
+		}
 	}
 	
 	$(document).on('click', '.fc-prev-button', function(e){
@@ -76,7 +166,7 @@ $(function(){
 			myCustomButton: {
 				text: '저장',
 	            click: function() {
-	                alert('clicked the custom button!');
+	                _save();
 	            }
 			},
 		},
@@ -89,7 +179,7 @@ $(function(){
 	    navLinks: true, // can click day/week names to navigate views
 	    editable: true,
 	    eventLimit: true, // allow "more" link when too many events
-	      events: [
+	    events: [
 	        {
 	          title: 'All Day Event',
 	          start: '2017-12-01'
