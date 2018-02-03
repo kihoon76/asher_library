@@ -1,7 +1,7 @@
 Ext.define('Asher.view.panel.CategoryPanel', {
 	 extend      : 'Ext.tree.Panel'
     ,alias       : 'widget.categorypanel'
-    //,uses        : ['Hotplace.util.Constants']
+    //,uses        : ['Asher.util.Constants']
     ,title       : '카테고리'
     ,initComponent : function() {
     	var addedCategoryMap = {};
@@ -15,12 +15,19 @@ Ext.define('Asher.view.panel.CategoryPanel', {
 					 },{
 						 text: '재정관리', expand: true, iconCls : 'tree-expand'
 						,children : [{
-							text: '권한리스트', leaf : true, cate : 'authority', id : 'cate-authority-list'
+							text: '재정등록', leaf : true, cate : 'money', id : 'cate-money-reg'
 						}]
 					 }, {
-						 text: '로그관리', expand: true, iconCls : 'tree-expand'
+						 text: '예배', expand: true, iconCls : 'tree-expand'
 						,children : [{
-							text: '로그리스트', leaf : true, cate : 'log', id : 'cate-log-list'
+							text: '예배리스트', leaf : true, cate : 'worship', id : 'cate-worship-list'
+						}]
+					 }, {
+						 text: '기도회', expand: true, iconCls : 'tree-expand'
+						,children : [{
+							text: '하누카', leaf : true, cate : 'pray', id : 'cate-pray-hanuka'
+						}, {
+							text: '오순절', leaf : true, cate : 'pray', id : 'cate-pray-osunjeol'
 						}]
 					 }]
     	    	 }

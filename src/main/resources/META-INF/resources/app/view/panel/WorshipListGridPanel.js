@@ -1,11 +1,11 @@
-Ext.define('Asher.view.panel.LogListGridPanel', {
+Ext.define('Asher.view.panel.WorshipListGridPanel', {
 	extend: 'Ext.grid.Panel',
 	requires : ['Asher.util.Constants'],
-	xtype: 'loggrid',
-	id: 'logListGrid',
+	xtype: 'worshipgrid',
+	id: 'worshipListGrid',
 	initComponent: function() {
-		var store = Ext.create('Asher.store.LogListStore'),
-			constants = Hotplace.util.Constants,
+		var store = Ext.create('Asher.store.WorshipListStore'),
+			constants = Asher.util.Constants,
 			//controller = _hotplaceApp.getController('NoticeController'),
 			categoryPanel = Ext.getCmp('app-category'),
 			contentPanel = Ext.getCmp('app-contents'),
@@ -14,31 +14,37 @@ Ext.define('Asher.view.panel.LogListGridPanel', {
 		Ext.apply(this, {
 			store: store,
 			columns: [{
-				text: '아이피',
-				dataIndex: 'ip',
+				text: '날짜',
+				dataIndex: 'worshipDate',
 				flex: 0
 			}, {
-				text: '아이디',
-				dataIndex: 'accountId',
-				flex: 0
-			}, {
-				text: '유입경로',
-				dataIndex: 'referer',
-				flex: 0
-			}, {
-				text: '요청리소스',
-				dataIndex: 'url',
-				flex: 0
-			}, {
-				text: '파라미터',
-				dataIndex: 'parameter',
+				text: '제목',
+				dataIndex: 'worshipTitle',
 				flex: 1
 			}, {
-				text: '접속시간',
-				dataIndex: 'accessTime',
+				text: '말씀',
+				dataIndex: 'worshipBible',
+				flex: 0
+			}, {
+				text: '요일',
+				dataIndex: 'worshipDay',
+				flex: 0
+			}, {
+				text: '설교자',
+				dataIndex: 'worshipPreacher',
 				flex: 0
 			}],
-			tbar: ['->',
+			tbar: [{
+				xtype: 'button',
+				text: '추가',
+				iconCls: 'icon-add',
+				listeners: {
+					click: function() {
+						Ext.create('Asher.view.window.WorshipAddWin');
+					}
+				}
+				
+			}, '->',
 			       '검색항목 : ',
 			       {
 				
@@ -47,26 +53,26 @@ Ext.define('Asher.view.panel.LogListGridPanel', {
 				xtype: 'pagingtoolbar',
 				store: store,
 				displayInfo: true,
-				displayMsg: '공지사항 리스트 {0} - {1} of {2}',
+				displayMsg: '예배 리스트 {0} - {1} of {2}',
 				dock: 'bottom',
 				doRefresh: function() {
-					Ext.getCmp('logListGrid').getStore().load();
+					Ext.getCmp('worshipListGrid').getStore().load();
 				},
 				items: ['-', {
 					text: '목록수 : '
 				}, Ext.create('Ext.form.field.ComboBox', {
 					queryMode: 'local',
-					id: 'log-paging-combo',
+					id: 'worship-paging-combo',
 					displayField: 'name',
 					valueField: 'value',
 					editable: false,
 					width: 100,
 					value: constants.gridPageSize,
-					store: Ext.create('Hotplace.store.PagingSize'),
+					store: Ext.create('Asher.store.PagingSize'),
 					listeners: {
 						change: function(cb, nV, oV) {
 							store.pageSize = nV;
-							Ext.getCmp('logListGrid')
+							Ext.getCmp('worshipListGrid')
 							   .getStore()
 							   .loadPage(1, {
 								   params: { limit: nV}

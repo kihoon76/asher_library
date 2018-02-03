@@ -33,13 +33,20 @@ Ext.apply(Ext.form.field.VTypes, {
    }
 });
 
+Ext.EventManager.onWindowResize(function(w, h){
+	var _w1 = Ext.getCmp('worshipAddWin');
+	if(_w1) {
+		_w1.setSize(w,h);
+	}
+});
+
 Ext.application({
     name: 'Asher'
    ,appFolder: '/resources/app'
    ,autoCreateViewport: true
    ,controllers : [
-        'Asher.controller.LogController',
-        'Asher.controller.ScheduleController'
+        'Asher.controller.ScheduleController',
+        'Asher.controller.WorshipController'
    ]
    ,launch:function(){
 	   

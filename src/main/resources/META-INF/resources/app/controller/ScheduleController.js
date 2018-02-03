@@ -6,6 +6,7 @@ Ext.define('Asher.controller.ScheduleController', {
 	},
 	onItemClick: function(tree, record, item, idx, e) {
 		var recObj = record.raw;
+		if(recObj.cate != 'schedule') return;
 		
 		if(recObj.leaf) {
 			if(!this.categoryPanel.isAttachedCategory(recObj.id)) {

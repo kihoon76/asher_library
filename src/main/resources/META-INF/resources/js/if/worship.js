@@ -1,9 +1,9 @@
 $(function(){
-	var $editor = $('#noticeEditor');
-	var $title = $('#noticeTitle');
+	var $editor = $('#worshipEditor');
+	var $title = $('#worshipTitle');
 	var extTab = parent.Ext.getCmp('app-contents');
 	
-	CKEDITOR.replace('noticeEditor', {
+	CKEDITOR.replace('worshipEditor', {
 		height: '500px',
 		on: {
 			'loaded': function() {
