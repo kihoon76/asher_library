@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.worshipMapper">
+	
+	<resultMap id="RM_bible" type="Bible">
+		<result column="bible_num" property="bibleNum" />
+		<result column="bible_long_label" property="bibleLongLabel" />
+	</resultMap>
+	
+	<select id="selectBibleLabel" resultMap="RM_bible">
+		select bible_num, bible_long_label from bibles_config 
+	</select>
+	
+</mapper>
