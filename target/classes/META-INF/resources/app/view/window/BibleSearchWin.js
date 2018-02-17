@@ -13,6 +13,33 @@ Ext.define('Asher.view.window.BibleSearchWin', {
 		        //...
 		    ]
 		});*/
+		
+		/*function getChapter(list) {
+			var len = list.length;
+			var data = [];
+			for(var i=0; i<len; i++) {
+				data.push({
+					bibleNum:list[i].bibleNum,
+					chapter:list[i].chapter,
+					totalParagraph:list[i].totalParagraph
+				});
+			}
+			
+			return data;
+		}
+		
+		function getParagraph(count) {
+			var data = [];
+			if(count>0) {
+				for(var i=0; i<count; i++) {
+					data.push({
+						paragraph:i+1
+					});
+				}
+			}
+			
+			return data;
+		}
 
 		var form = Ext.widget('form', {
             layout: {
@@ -42,7 +69,7 @@ Ext.define('Asher.view.window.BibleSearchWin', {
                     flex: 1,
                     fieldLabel: '말씀',
                     store: { 
-                        fields: ['bibleNum', 'bibleLongLabel'], 
+                        fields: ['bibleNum', 'bibleLongLabel', 'list'], 
                         proxy: { 
                             type: 'ajax', 
                             url: 'worship/bible/label' 
@@ -53,37 +80,93 @@ Ext.define('Asher.view.window.BibleSearchWin', {
                     editable: false,
                     listeners: {
                     	select: function(cb, r) {
-                    		var bibleNum = r[0].data.bibleNum;
+                    		var list = r[0].data.list;
+                    		Ext.getCmp('chapterComboFrom').getStore().loadData(getChapter(list));
                     	}
                     }
                 }, {
                     width: 50,
+                    id: 'chapterComboFrom',
                     fieldLabel: '장',
-                    valueField: 'chaptor',
-                    displayField: 'paragraphe',
+                    store: new Ext.data.ArrayStore({
+                    	fields: ['bibleNum', 'chapter', 'totalParagraph'],
+                        data: []  // data is local
+                    }),
+                    editable: false,
+                    valueField: 'chapter',
+                    displayField: 'chapter',
+                    queryMode: 'local',
+                    margins: '0 0 0 5',
+                    listeners: {
+                    	select: function(cb, r) {
+                    		var totalParagraph = r[0].data.totalParagraph;
+                    		Ext.getCmp('paragraphComboFrom').getStore().loadData(getParagraph(totalParagraph));
+                    	}
+                    }
+                }, {
+                    width: 50,
+                    fieldLabel: '절',
+                    id:'paragraphComboFrom',
+                    store: new Ext.data.ArrayStore({
+                    	fields: ['paragraph'],
+                        data: []  // data is local
+                    }),
+                    editable: false,
+                    valueField: 'paragraph',
+                    displayField: 'paragraph',
                     queryMode: 'local',
                     margins: '0 0 0 5'
                 }, {
-                    width: 50,
-                    name: 'middleInitial',
-                    fieldLabel: '절',
-                    margins: '0 0 0 5'
-                }, {
                     flex: 1,
-                    name: 'lastName',
-                    //afterLabelTextTpl: required,
                     fieldLabel: '말씀',
-                    allowBlank: false,
+                    store: { 
+                        fields: ['bibleNum', 'bibleLongLabel', 'list'], 
+                        proxy: { 
+                            type: 'ajax', 
+                            url: 'worship/bible/label' 
+                        } 
+                    },
+                    valueField: 'bibleNum',
+                    displayField: 'bibleLongLabel',
+                    editable: false,
+                    listeners: {
+                    	select: function(cb, r) {
+                    		var list = r[0].data.list;
+                    		Ext.getCmp('chapterComboTo').getStore().loadData(getChapter(list));
+                    	}
+                    },
                     margins: '0 0 0 5'
                 }, {
                     width: 50,
-                    name: 'middleInitial',
                     fieldLabel: '장',
-                    margins: '0 0 0 5'
+                    id: 'chapterComboTo',
+                    store: new Ext.data.ArrayStore({
+                    	fields: ['bibleNum', 'chapter', 'totalParagraph'],
+                        data: []  // data is local
+                    }),
+                    editable: false,
+                    valueField: 'chapter',
+                    displayField: 'chapter',
+                    queryMode: 'local',
+                    margins: '0 0 0 5',
+                    listeners: {
+                    	select: function(cb, r) {
+                    		var totalParagraph = r[0].data.totalParagraph;
+                    		Ext.getCmp('paragraphComboTo').getStore().loadData(getParagraph(totalParagraph));
+                    	}
+                    },
                 }, {
                     width: 50,
-                    name: 'middleInitial',
+                    id:'paragraphComboTo',
                     fieldLabel: '절',
+                    store: new Ext.data.ArrayStore({
+                    	fields: ['paragraph'],
+                        data: []  // data is local
+                    }),
+                    editable: false,
+                    valueField: 'paragraph',
+                    displayField: 'paragraph',
+                    queryMode: 'local',
                     margins: '0 0 0 5'
                 }]
             }, {
@@ -103,16 +186,17 @@ Ext.define('Asher.view.window.BibleSearchWin', {
                 handler: function() {
                 }
             }]
-        });
+        });*/
 		
 		Ext.apply(this, {
 			height:Ext.getBody().getViewSize().height * 0.6,
 		    width:Ext.getBody().getViewSize().width * 0.6, //80%
-			autoShow: false,
-			closeAction: 'hide',
+			autoShow: true,
 			modal: true,
-			items: form,
+			items: [Ext.create('Asher.view.iframe.BaseIframe', { url: 'worship/if/bibleSearchForm' })],
 			layout: 'fit',
+			draggable:false,
+			resizable:false
 		});
 		
 		this.callParent(arguments);

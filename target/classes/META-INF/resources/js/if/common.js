@@ -1,4 +1,4 @@
-var Hotplace = (function() {
+var Utils = (function() {
 	var _ROOT_CONTEXT = $('body').data('url');
 	
 	/*******************************************************
@@ -65,74 +65,8 @@ var Hotplace = (function() {
 	}
 	
 	return {
-		ajax: function(params) {
-			$.ajax(_ROOT_CONTEXT + params.url, {
-				async: (params.async == null)? true : params.async,
-				beforeSend: function(xhr) {
-					var activeMask = (params.activeMask == undefined) ? true : params.activeMask; //전체설정 이후 마스크 개별설정
-					if(activeMask && !params.isMaskTran) Hotplace.showMask(params.loadEl, params.loadMsg);
-					
-					if(params.beforeSend && typeof params.beforeSend === 'function') {
-						params.beforeSend(xhr);
-					} 
-				},
-				contentType: params.contentType || 'application/x-www-form-urlencoded; charset=UTF-8',
-				dataType: (params.method == 'DELETE') ? null : (params.dataType || 'json'),
-				method: params.method || 'POST',
-				context: params.context || document.body,
-				data: (params.method == 'DELETE') ? null : params.data,
-				statusCode: {
-					404: function() {
-						console.log('Page not found');
-					}  
-				},
-				success: function(data, textStatus, jqXHR) {
-					if(!params.success || typeof params.success !== 'function') {
-						throw new Error('success function not defined');
-					}
-					
-					try {
-						params.success(data, textStatus, jqXHR);
-						
-					} 
-					finally {
-						var activeMask = (params.activeMask == undefined) ? true : params.activeMask; 
-						if(activeMask) {
-							Hotplace.hideMask();
-						} 
-						
-					}
-				},
-				error: function(jqXHR, textStatus, e) {
-					if(!params.error || typeof params.error !== 'function') {
-						//Default 동작
-					}
-					else {
-						params.error(jqXHR, textStatus, e);
-					}
-					
-					var activeMask = (params.activeMask == undefined) ? true : params.activeMask; 
-					if(activeMask) {
-						Hotplace.hideMask();
-					} 
-				},
-				complete: function(jqXHR, textStatus) {
-					if(params.complete) params.complete(jqXHR);
-				},
-				timeout: params.timeout || 300000
-			});
-		},
-		showMask: function(loadEl, msg) {
-			if(loadEl) {
-				loadEl = $(loadEl);
-			}
-			else {
-				loadEl = $('body');
-			}
-			_runWaitMe(loadEl, 1, _loadEffects.ios, msg);
-		},
-		hideMask: function() {
-			_loadEl.waitMe('hide');
+		ajax: function() {
+			//parent.Ext.
 		},
 		showExtConfirm: function(param) {
 			parent.Ext.Msg.show({
@@ -153,6 +87,25 @@ var Hotplace = (function() {
 					}
 				}
 			});
+		},
+		makeOptions: function($sel, param, callback) {
+			var options = [];
+			if($.isArray(param)) {
+				
+				var len = param.length;
+				for(var i=0; i<len; i++) {
+					var obj = callback(param[i]);
+					options.push('<option value="' + obj.value + '">' + obj.text + '</option>');
+				}
+			}
+			else {
+				for(var i=0; i<param; i++) {
+					options.push('<option value="' + (i+1) + '">' + (i+1) + '</option>');
+				}
+			}
+			
+			
+			$sel.html(options.join(''));
 		}
 	}
 })();

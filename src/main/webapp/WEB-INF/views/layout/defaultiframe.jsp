@@ -17,7 +17,8 @@
 
 <body data-url="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/">
 <sitemesh:write property="body" />
-<script type="text/javascript" src="/resources/os/jquery.min.js"></script> 
+<script type="text/javascript" src="/resources/os/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/if/common.js"></script> 
 <!--  <script type="text/javascript" src="/resources/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
  <script type="text/javascript" src="/resources/os/waitMe/js/waitMe.min.js"></script>

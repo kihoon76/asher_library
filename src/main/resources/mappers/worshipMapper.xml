@@ -5,10 +5,25 @@
 	<resultMap id="RM_bible" type="Bible">
 		<result column="bible_num" property="bibleNum" />
 		<result column="bible_long_label" property="bibleLongLabel" />
+		<collection property="list" 
+					column="bible_num"
+					javaType="java.util.ArrayList"
+					ofType="ParagraphPerChaper"
+					select="selectParagraphPerChapter" />
 	</resultMap>
 	
 	<select id="selectBibleLabel" resultMap="RM_bible">
 		select bible_num, bible_long_label from bibles_config 
+	</select>
+	
+	<select id="selectParagraphPerChapter" parameterType="int" resultType="ParagraphPerChaper">
+		select bible_num as bibleNum,
+			   chapter,
+			   count(paragraph) as totalParagraph
+	 	  from bible_gaeyeog_gaejeong
+	  group by bible_num, chapter
+	    having bible_num = #{bible_num}
+	  order by bible_num,chapter
 	</select>
 	
 </mapper>

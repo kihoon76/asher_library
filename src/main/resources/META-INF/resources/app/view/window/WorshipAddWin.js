@@ -3,7 +3,7 @@ Ext.define('Asher.view.window.WorshipAddWin', {
 	xtype: 'worshipaddwin',
 	id: 'worshipAddWin',
 	initComponent: function() {
-		var searchWin = Ext.create('Asher.view.window.BibleSearchWin');
+		//var searchWin = Ext.create('Asher.view.window.BibleSearchWin');
 		Ext.apply(this, {
 			height:Ext.getBody().getViewSize().height,
 		    width:Ext.getBody().getViewSize().width, //80%
@@ -17,8 +17,9 @@ Ext.define('Asher.view.window.WorshipAddWin', {
 				iconCls: 'icon-search',
 				listeners: {
 					click: function() {
+						var searchWin = Ext.create('Asher.view.window.BibleSearchWin');
 						searchWin.show();
-					}
+					},
 				}
 			}]
 		});
