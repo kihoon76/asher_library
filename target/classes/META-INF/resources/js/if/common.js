@@ -1,72 +1,24 @@
 var Utils = (function() {
 	var _ROOT_CONTEXT = $('body').data('url');
 	
-	/*******************************************************
-	 * waitMe
-	 *******************************************************/
-	var _loadEl;
-	var _loadTxt = '';//'로딩 중입니다';
-	var _loadEndCount = 0;
-	
-	var _loadEffects = {
-		bounce: 'bounce',
-		rotateplane: 'rotateplane',
-		stretch: 'stretch',
-		orbit: 'orbit',
-		roundBounce: 'roundBounce',
-		win8: 'win8',
-		win8_linear: 'win8_linear',
-		ios: 'ios',
-		facebook: 'facebook',
-		rotation: 'rotation',
-		timer: 'timer',
-		pulse: 'pulse',
-		progressBar: 'progressBar',
-		bouncePulse: 'bouncePulse'
-	};
-	
-	function _runWaitMe(loadEl, num, effect, msg){
-		
-		var fontSize = '';
-		var maxSize = '';
-		var loadTxt = msg || '';//'로딩 중입니다';
-		var textPos = '';
-		
-		switch (num) {
-			case 1:
-			maxSize = '';
-			textPos = 'vertical';
-			fontSize = '25px';
-			break;
-			case 2:
-			loadTxt = '';
-			maxSize = 30;
-			textPos = 'vertical';
-			break;
-			case 3:
-			maxSize = 30;
-			textPos = 'horizontal';
-			fontSize = '18px';
-			break;
-		}
-		
-		_loadEl = loadEl;
-		_loadEl.waitMe({
-			effect: effect,
-			text: loadTxt,
-			bg: 'rgba(255,255,255,0.4)',//'rgba(255,255,255,0.4)',
-			color: '#000',
-			maxSize: maxSize,
-			source: 'img.svg',
-			textPos: textPos,
-			fontSize: fontSize,
-			onClose: function() {}
-		});
-	}
-	
 	return {
-		ajax: function() {
-			//parent.Ext.
+		ajax: function(param) {
+			var ajaxParam = {
+				url: _ROOT_CONTEXT + param.url,
+				method: param.method || 'POST',
+				callback: param.callback || function(options, success, response) {
+					
+				},
+			}
+			
+			if(param.jsonData) {
+				ajaxParam.jsonData = param.jsonData;
+			}
+			else if(param.params) {
+				ajaxParam.params = param.params;
+			}
+			
+			parent.Ext.Ajax.request(ajaxParam);
 		},
 		showExtConfirm: function(param) {
 			parent.Ext.Msg.show({
@@ -90,6 +42,7 @@ var Utils = (function() {
 		},
 		makeOptions: function($sel, param, callback) {
 			var options = [];
+			options.push('<option value="" selected> -- 선택 -- </option>');
 			if($.isArray(param)) {
 				
 				var len = param.length;

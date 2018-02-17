@@ -26,4 +26,16 @@
 	  order by bible_num,chapter
 	</select>
 	
+	<select id="selectBibleParagraphes" parameterType="map" resultType="Paragraph">
+		select t1.bible_num as bibleNum,
+			   t1.chapter,
+			   t1.paragraph,
+			   t1.sentence,
+			   t2.bible_long_label as bibleLongLabel
+		  from bible_gaeyeog_gaejeong t1
+		       inner join bibles_config t2
+		    on t1.bible_num = t2.bible_num
+		 where uniq_num >= (select uniq_num from bible_gaeyeog_gaejeong where bible_num=#{fromBibleNum} and chapter=#{fromChapter} and paragraph=#{fromParagraph})
+		   and uniq_num <![CDATA[<=]]> (select uniq_num from bible_gaeyeog_gaejeong where bible_num=#{toBibleNum} and chapter=#{toChapter} and paragraph=#{toParagraph})
+	</select>
 </mapper>

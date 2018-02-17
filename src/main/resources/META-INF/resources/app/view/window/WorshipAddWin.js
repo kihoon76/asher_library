@@ -18,6 +18,8 @@ Ext.define('Asher.view.window.WorshipAddWin', {
 				listeners: {
 					click: function() {
 						var searchWin = Ext.create('Asher.view.window.BibleSearchWin');
+						
+						searchWin.getEl().mask('로딩중입니다');
 						searchWin.show();
 					},
 				}

@@ -19,6 +19,7 @@
 	<tr>
 		<td>
  			<select class="form-control" id="selBibleFrom">
+ 				<option value="" selected> -- 선택 -- </option>
 		    	<c:forEach items="${list}" var="bible">
 		    	<option value="${bible.bibleNum}" data-chapters="${fn:length(bible.list)}" data-config='${bible.gsonList}'>${bible.bibleLongLabel}</option>
 		    	</c:forEach>
@@ -38,6 +39,7 @@
 		</td>
 		<td>
  			<select class="form-control" id="selBibleTo">
+ 				<option value="" selected> -- 선택 -- </option>
   				<c:forEach items="${list}" var="bible">
 		    	<option value="${bible.bibleNum}" data-chapters="${fn:length(bible.list)}" data-config='${bible.gsonList}'>${bible.bibleLongLabel}</option>
 		    	</c:forEach>
@@ -45,29 +47,25 @@
 		</td>
 		<td>
 			 <div class="input-group">
-				<select class="form-control" id="selChapterTo">
-	  				<option selected>Choose...</option>
-				</select>
+				<select class="form-control" id="selChapterTo"></select>
     			<div class="input-group-addon">장</div>
   			</div>
 		</td>
 		<td>
 			 <div class="input-group">
-				<select class="form-control" id="selParagraphTo">
-	  				<option selected>Choose...</option>
-				</select>
+				<select class="form-control" id="selParagraphTo"></select>
     			<div class="input-group-addon">절</div>
   			</div>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="6">
-				<button class="form-control btn btn-primary" id="btnBibleSearch">검색</button>
+			<button class="form-control btn btn-primary" id="btnBibleSearch">검색</button>
 		</td>
 	</tr>
 	<tr>
-		<td>
-			<div class="form-control" id="dvBibleSearchResult"></div>
+		<td colspan="6">
+			<div id="dvBibleSearchResult" style="width:100%; height:200px;"></div>
 		</td>
 	</tr>
 	

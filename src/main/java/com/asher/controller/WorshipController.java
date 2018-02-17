@@ -1,16 +1,21 @@
 package com.asher.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.asher.domain.AjaxVO;
 import com.asher.domain.Bible;
+import com.asher.domain.Paragraph;
 import com.asher.service.WorshipService;
 import com.google.gson.Gson;
 
@@ -31,10 +36,7 @@ public class WorshipController {
 		List<Bible> list =  worshipService.getBibleLabel();
 		
 		Gson g = new Gson();
-		String s = "";
 		for(Bible b : list) {
-			//s = g.toJson(b.getList());
-			//s = s.replaceAll("\"", "'");
 			b.setGsonList(g.toJson(b.getList()));
 			System.err.println(b.getGsonList());
 		}
@@ -43,15 +45,21 @@ public class WorshipController {
 		return "worship/bibleSearchForm";
 	}
 	
-	
-	@GetMapping("bible/label")
+	@PostMapping("if/bibleSearch")
 	@ResponseBody
-	public List<Bible> getBibleLabel() {
-		List<Bible> list =  worshipService.getBibleLabel();
-		Gson gson = new Gson();
-		String s = gson.toJson(list);
+	public AjaxVO getBibleParagraphes(@RequestBody Map<String, Integer> map) {
 		
-		System.err.println(s);
-		return list;
+		AjaxVO vo = new AjaxVO();
+		try {
+			String paragraphes = worshipService.getBibleParagraphes(map);
+			vo.setSuccess(true);
+			vo.addObject(paragraphes);
+		}
+		catch(Exception e) {
+			vo.setSuccess(false);
+			vo.setErrMsg(e.getMessage());
+		}
+		
+		return vo;
 	}
 }

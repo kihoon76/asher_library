@@ -43,17 +43,38 @@ $(function(){
 	
 	$('#btnBibleSearch').on('click', function() {
 		var param = {
-			fromBibleNum: $('#selBibleFrom').val(),
-			fromChapter: $('#selChapterFrom').text(),
-			fromParagraph: $('#selParagraphFrom').val(),
-			toBibleNum: $('#selBibleTo').val(),
-			toChapter: $('#selChapterTo').text(),
-			toParagraph: $('#selParagraphTo').val()
+			fromBibleNum: $('#selBibleFrom option:selected').val(),
+			fromChapter: $('#selChapterFrom option:selected').text(),
+			fromParagraph: $('#selParagraphFrom option:selected').val(),
+			toBibleNum: $('#selBibleTo option:selected').val(),
+			toChapter: $('#selChapterTo option:selected').text(),
+			toParagraph: $('#selParagraphTo option:selected').val()
 		};
 		
 		Utils.ajax({
-			
+			url: 'worship/if/bibleSearch',
+			jsonData: JSON.stringify(param),
+			callback: function(options, success, response) {
+				console.log(success);
+				console.log(response)
+				
+				if(success) {
+					var res = response.responseText;
+					var jo = $.parseJSON(res);
+					
+					if(jo.success) {
+						$('#dvBibleSearchResult').html(jo.datas[0]);
+					}
+				}
+				
+			}
 		});
 	});
 	
+
+	
 });
+
+window.onload = function() {
+	parent.Ext.getCmp('bibleSearchWin').getEl().unmask();
+};
