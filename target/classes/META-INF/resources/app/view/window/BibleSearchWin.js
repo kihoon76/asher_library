@@ -191,12 +191,30 @@ Ext.define('Asher.view.window.BibleSearchWin', {
 		Ext.apply(this, {
 			height:Ext.getBody().getViewSize().height * 0.6,
 		    width:Ext.getBody().getViewSize().width * 0.6, //80%
+		    title:'test',
 			autoShow: true,
-			modal: true,
+			modal: false,
 			items: [Ext.create('Asher.view.iframe.BaseIframe', { url: 'worship/if/bibleSearchForm' })],
 			layout: 'fit',
 			draggable:false,
-			resizable:false
+			resizable:false,
+			minimizable:true,
+			listeners: {
+	            'minimize': function (window, opts) {
+	                window.collapse();
+	                window.setWidth(200);
+	                window.alignTo(Ext.getBody(), 'bl-bl')
+	            }
+	        },
+	        tools: [{
+	            type: 'restore',
+	            handler: function (evt, toolEl, owner, tool) {
+	                var window = owner.up('window');
+	                window.setWidth(Ext.getBody().getViewSize().width * 0.6);
+	                window.expand('', false);
+	                window.center();
+	            }
+	        }]
 		});
 		
 		this.callParent(arguments);

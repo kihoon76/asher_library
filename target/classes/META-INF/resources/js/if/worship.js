@@ -4,7 +4,7 @@ $(function(){
 	var extTab = parent.Ext.getCmp('app-contents');
 	
 	CKEDITOR.replace('worshipEditor', {
-		height: '500px',
+		height: '400px',
 		on: {
 			'loaded': function() {
 				
