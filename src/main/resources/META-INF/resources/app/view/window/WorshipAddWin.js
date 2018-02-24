@@ -3,10 +3,11 @@ Ext.define('Asher.view.window.WorshipAddWin', {
 	xtype: 'worshipaddwin',
 	id: 'worshipAddWin',
 	initComponent: function() {
-		//var searchWin = Ext.create('Asher.view.window.BibleSearchWin');
+		var searchWin = null;
+		
 		Ext.apply(this, {
 			height:Ext.getBody().getViewSize().height,
-		    width:Ext.getBody().getViewSize().width, //80%
+		    width:Ext.getBody().getViewSize().width, 
 			autoShow: true,
 			modal: true,
 			items: [Ext.create('Asher.view.iframe.BaseIframe', { url: 'worship/if/addForm' })],
@@ -17,10 +18,19 @@ Ext.define('Asher.view.window.WorshipAddWin', {
 				iconCls: 'icon-search',
 				listeners: {
 					click: function() {
-						var searchWin = Ext.create('Asher.view.window.BibleSearchWin');
+						var searchWin = null;
+						var oldSearchWin = Ext.getCmp('bibleSearchWin');
 						
-						searchWin.getEl().mask('로딩중입니다');
-						searchWin.show();
+						if(!oldSearchWin) {
+							searchWin = Ext.create('Asher.view.window.BibleSearchWin');
+							
+							searchWin.getEl().mask('로딩중입니다');
+							searchWin.show();
+						}
+						else {
+							oldSearchWin.toFront();
+							oldSearchWin.toggleMaximize();
+						}
 					},
 				}
 			}]

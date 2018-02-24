@@ -1,6 +1,7 @@
 $(function(){
 	$('#selBibleFrom').on('change', function() {
 		var $option = $(this).find(':selected'); //('config');
+		var selectedIndex = $option.index();
 		var $target = $('#selChapterFrom');
 		var datas = $option.data('config');
 		
@@ -10,6 +11,10 @@ $(function(){
 				text:obj.chapter
 			}
 		});
+		
+		$('#selParagraphFrom').html('');
+		
+		$('#selBibleTo').trigger('change', selectedIndex);
 	});
 	
 	$('#selChapterFrom').on('change', function() {
@@ -18,10 +23,24 @@ $(function(){
 		var $target = $('#selParagraphFrom');
 		
 		Utils.makeOptions($target, intParagraph);
+		$('#selChapterTo').trigger('change', $(this).find(':selected').index());
 	});
 	
-	$('#selBibleTo').on('change', function() {
-		var $option = $(this).find(':selected'); //('config');
+	$('#selParagraphFrom').on('change', function() {
+		$('#selParagraphTo').trigger('change', $(this).find(':selected').index());
+	});
+	
+	$('#selBibleTo').on('change', function(e, p) {
+		var $option = null;
+		
+		if(p != undefined) {
+			$option = $(this).find('option').eq(p);
+			$option.prop('selected', true);
+		}
+		else {
+			$option = $(this).find(':selected');
+		}
+		
 		var $target = $('#selChapterTo');
 		var datas = $option.data('config');
 		
@@ -31,14 +50,32 @@ $(function(){
 				text:obj.chapter
 			}
 		});
+		
+		$('#selParagraphTo').html('');
 	});
 	
-	$('#selChapterTo').on('change', function() {
-		var paragraph = $(this).val();
+	$('#selChapterTo').on('change', function(e, p) {
+		var paragraph = 0;
+		if(p != undefined) {
+			$option = $(this).find('option').eq(p);
+			$option.prop('selected', true);
+			paragraph = $option.val();
+		}
+		else {
+			paragraph = $(this).val();
+		}
+		
 		var intParagraph = parseInt(paragraph, 10);
 		var $target = $('#selParagraphTo');
 		
 		Utils.makeOptions($target, intParagraph);
+	});
+	
+	$('#selParagraphTo').on('change', function(e, p) {
+		if(p == undefined) return;
+		
+		var $option = $(this).find('option').eq(p);
+		$option.prop('selected', true);
 	});
 	
 	$('#btnBibleSearch').on('click', function() {
