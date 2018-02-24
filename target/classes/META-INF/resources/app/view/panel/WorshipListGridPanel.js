@@ -40,7 +40,8 @@ Ext.define('Asher.view.panel.WorshipListGridPanel', {
 				iconCls: 'icon-add',
 				listeners: {
 					click: function() {
-						Ext.create('Asher.view.window.WorshipAddWin');
+						var w = Ext.create('Asher.view.window.WorshipAddWin');
+						w.getEl().mask('로딩중입니다');
 					}
 				}
 				

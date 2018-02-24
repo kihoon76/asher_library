@@ -7,19 +7,53 @@
     <link rel="stylesheet" href="/resources/os/bootstrap/3.3.7-1/css/bootstrap.min.css" />
 </head>
 <body>
-	<table class="table">
+	<table class="table" style="width:100%">
 		<tr>
 			<td>
   				<form class="form-inline">
   					<label class="sr-only" for="worshipTitle">Name</label>
-  					<input type="text" class="form-control" id="worshipTitle" placeholder="말씀제목">
-  					<label class="sr-only" for="inlineFormCustomSelect"> 말씀구절</label>
-  					<select class="form-control" id="inlineFormCustomSelect">
-    					<option selected>Choose...</option>
-					    <option value="1">One</option>
-					    <option value="2">Two</option>
-					    <option value="3">Three</option>
+  					<input type="text" class="form-control" id="worshipTitle" placeholder="말씀제목" style="width:100%;">
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<form class="form-inline">
+  					<select class="form-control" id="selBibleFromInAdd">
+		 				<option value="" selected> -- 선택 -- </option>
+				    	<c:forEach items="${list}" var="bible">
+				    	<option value="${bible.bibleNum}" data-chapters="${fn:length(bible.list)}" data-config='${bible.gsonList}'>${bible.bibleLongLabel}</option>
+				    	</c:forEach>
 					</select>
+					
+					<div class="input-group">
+						<select class="form-control" id="selChapterFromInAdd"></select>
+	    				<div class="input-group-addon">장</div>
+	    			</div>
+	    			
+	    			<div class="input-group"> 
+ 						<select class="form-control" id="selParagraphFromInAdd"></select> 
+ 	    				<div class="input-group-addon">절</div> 
+ 	    			</div>
+ 	    			
+ 	    			~
+ 	    			
+ 	    			<select class="form-control" id="selBibleToInAdd"> 
+		 				<option value="" selected> -- 선택 -- </option>
+		  				<c:forEach items="${list}" var="bible">
+				    	<option value="${bible.bibleNum}" data-chapters="${fn:length(bible.list)}" data-config='${bible.gsonList}'>${bible.bibleLongLabel}</option>
+				    	</c:forEach>
+					</select>
+					
+					<div class="input-group"> 
+						<select class="form-control" id="selChapterToInAdd"></select>
+	    				<div class="input-group-addon">장</div>
+	  				</div>
+	  				
+	  				 <div class="input-group">
+	  				 	<select class="form-control" id="selParagraphToInAdd"></select>
+	    				<div class="input-group-addon">절</div>
+	  				</div>
 				</form>
 			</td>
 		</tr>

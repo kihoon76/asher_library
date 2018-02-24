@@ -12,6 +12,85 @@ $(function(){
 		}
 	});
 	
+	$('#selBibleFromInAdd').on('change', function() {
+		var $option = $(this).find(':selected'); //('config');
+		var selectedIndex = $option.index();
+		var $target = $('#selChapterFromInAdd');
+		var datas = $option.data('config');
+		
+		Utils.makeOptions($target, datas, function(obj) {
+			return {
+				value:obj.totalParagraph,
+				text:obj.chapter
+			}
+		});
+		
+		$('#selParagraphFromInAdd').html('');
+		
+		$('#selBibleToInAdd').trigger('change', selectedIndex);
+	});
+	
+	$('#selChapterFromInAdd').on('change', function() {
+		var paragraph = $(this).val();
+		var intParagraph = parseInt(paragraph, 10);
+		var $target = $('#selParagraphFromInAdd');
+		
+		Utils.makeOptions($target, intParagraph);
+		$('#selChapterToInAdd').trigger('change', $(this).find(':selected').index());
+	});
+	
+	$('#selParagraphFromInAdd').on('change', function() {
+		$('#selParagraphToInAdd').trigger('change', $(this).find(':selected').index());
+	});
+	
+	$('#selBibleToInAdd').on('change', function(e, p) {
+		var $option = null;
+		
+		if(p != undefined) {
+			$option = $(this).find('option').eq(p);
+			$option.prop('selected', true);
+		}
+		else {
+			$option = $(this).find(':selected');
+		}
+		
+		var $target = $('#selChapterToInAdd');
+		var datas = $option.data('config');
+		
+		Utils.makeOptions($target, datas, function(obj) {
+			return {
+				value:obj.totalParagraph,
+				text:obj.chapter
+			}
+		});
+		
+		$('#selParagraphToInAdd').html('');
+	});
+	
+	$('#selChapterToInAdd').on('change', function(e, p) {
+		var paragraph = 0;
+		if(p != undefined) {
+			$option = $(this).find('option').eq(p);
+			$option.prop('selected', true);
+			paragraph = $option.val();
+		}
+		else {
+			paragraph = $(this).val();
+		}
+		
+		var intParagraph = parseInt(paragraph, 10);
+		var $target = $('#selParagraphToInAdd');
+		
+		Utils.makeOptions($target, intParagraph);
+	});
+	
+	$('#selParagraphToInAdd').on('change', function(e, p) {
+		if(p == undefined) return;
+		
+		var $option = $(this).find('option').eq(p);
+		$option.prop('selected', true);
+	});
+	
 	$('#btnModifyNotice').on('click', function() {
 		var data = CKEDITOR.instances.noticeEditor.getData();
 		var title = $.trim($title.val());
@@ -121,5 +200,8 @@ $(function(){
 			
 		}
 	})
-	
 });
+
+window.onload = function() {
+	parent.Ext.getCmp('worshipAddWin').getEl().unmask();
+};

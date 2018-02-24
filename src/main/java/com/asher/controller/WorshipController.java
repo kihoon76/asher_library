@@ -27,7 +27,16 @@ public class WorshipController {
 	WorshipService worshipService;
 	
 	@GetMapping("if/addForm")
-	public String getWorshipAddWindow() {
+	public String getWorshipAddWindow(ModelMap map) {
+		List<Bible> list =  worshipService.getBibleLabel();
+		
+		Gson g = new Gson();
+		for(Bible b : list) {
+			b.setGsonList(g.toJson(b.getList()));
+			System.err.println(b.getGsonList());
+		}
+		
+		map.addAttribute("list", list);
 		return "worship/addForm";
 	}
 	

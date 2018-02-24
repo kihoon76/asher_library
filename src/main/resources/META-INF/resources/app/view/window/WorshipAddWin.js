@@ -33,7 +33,16 @@ Ext.define('Asher.view.window.WorshipAddWin', {
 						}
 					},
 				}
-			}]
+			}],
+			listeners: {
+				close: function() {
+					var bibleSearchWin = Ext.getCmp('bibleSearchWin');
+					
+					if(bibleSearchWin) {
+						bibleSearchWin.close();
+					}
+				}
+			}
 		});
 		
 		this.callParent(arguments);
