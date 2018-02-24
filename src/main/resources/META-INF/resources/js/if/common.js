@@ -1,4 +1,4 @@
-window.Utils = (function() {
+Utils = (function() {
 	var _ROOT_CONTEXT = $('body').data('url');
 	
 	return {

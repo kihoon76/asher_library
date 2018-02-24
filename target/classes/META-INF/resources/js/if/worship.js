@@ -91,12 +91,12 @@ $(function(){
 		$option.prop('selected', true);
 	});
 	
-	$('#btnModifyNotice').on('click', function() {
+	$('#btnRegWorship').on('click', function() {
 		var data = CKEDITOR.instances.noticeEditor.getData();
 		var title = $.trim($title.val());
 		
-		Hotplace.ajax({
-			url: 'notice/if/content/' + $editor.data('num'),
+		Utils.ajax({
+			url: 'worship/reg/',
 			data: { content: data, title: title },
 			method: 'POST',
 			success: function(data, textStatus, jqXHR) {
@@ -108,12 +108,6 @@ $(function(){
 				}
 				else {
 					parent.Ext.Msg.alert('오류', data.errMsg);
-					Hotplace.showExtConfirm({
-						type: 'alert',
-						title: '오류',
-						msg: data.errMsg,
-						icon: parent.Ext.MessageBox.ERROR
-					});
 				}
 			}
 		});

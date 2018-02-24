@@ -71,4 +71,12 @@ public class WorshipController {
 		
 		return vo;
 	}
+	
+	@PostMapping("reg")
+	@ResponseBody
+	public AjaxVO regWorship() {
+		AjaxVO vo = new AjaxVO();
+		
+		return vo;
+	}
 }
