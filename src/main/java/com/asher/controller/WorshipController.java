@@ -1,5 +1,6 @@
 package com.asher.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.asher.domain.AjaxVO;
 import com.asher.domain.Bible;
+import com.asher.domain.FileBucket;
 import com.asher.domain.Paragraph;
+import com.asher.domain.Worship;
 import com.asher.service.WorshipService;
 import com.google.gson.Gson;
 
@@ -74,8 +79,40 @@ public class WorshipController {
 	
 	@PostMapping("reg")
 	@ResponseBody
-	public AjaxVO regWorship() {
+	public AjaxVO regWorship(
+			@RequestParam("file") MultipartFile[] files,
+			@RequestParam("content") String content,
+			@RequestParam("title") String title) {
 		AjaxVO vo = new AjaxVO();
+		
+		Worship worship = new Worship();
+		worship.setTitle(title);
+		worship.setContent(content);
+		
+		List<FileBucket> fbList = null;
+		
+		try {
+			if(files != null) {
+				fbList = new ArrayList<>();
+				for(MultipartFile file: files) {
+					String fName = file.getOriginalFilename();
+					FileBucket fb = new FileBucket();
+					fb.setImageName(fName);
+					fb.setExt(fName.substring(fName.lastIndexOf(".") + 1));
+					fb.setImage(file.getBytes());
+					fbList.add(fb);
+				}
+				
+				worship.setAttachedFiles(fbList);
+			}
+			
+			worshipService.regWorship(worship);
+		}
+		catch(Exception e) {
+			
+		}
+		
+		
 		
 		return vo;
 	}

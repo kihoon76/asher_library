@@ -1,6 +1,7 @@
 Utils = (function() {
 	var _ROOT_CONTEXT = $('body').data('url');
-	
+	var _$file = null;
+	var _selectedFiles = {};
 	return {
 		ajax: function(param) {
 			var ajaxParam = {
@@ -59,6 +60,10 @@ Utils = (function() {
 			
 			
 			$sel.html(options.join(''));
-		}
+		},
+		getPath: function(url) {
+			return _ROOT_CONTEXT + url;
+		},
+		
 	}
 })();

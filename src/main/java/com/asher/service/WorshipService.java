@@ -6,10 +6,14 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.asher.dao.WorshipDao;
 import com.asher.domain.Bible;
 import com.asher.domain.Paragraph;
+import com.asher.domain.Worship;
 import com.google.gson.Gson;
 
 @Service("worshipService")
@@ -51,6 +55,20 @@ public class WorshipService {
 			return sb.toString();
 		}
 		return "";
+	}
+
+	@Transactional(
+				isolation=Isolation.DEFAULT, 
+			   	propagation=Propagation.REQUIRED, 
+			   	rollbackFor=Exception.class,
+			   	timeout=10)//timeout 초단위
+	public void regWorship(Worship worship) {
+		// TODO Auto-generated method stub
+		int r1 = worshipDao.insertWorship(worship);
+		int r2 = worshipDao.insertWorshipAttachedImages(worship);
+		if((r1 + r2) != worship.getAttachedFiles().size() + 1) {
+			throw new RuntimeException("Error!!!!!");
+		}
 	}
 
 }

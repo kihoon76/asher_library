@@ -5,6 +5,7 @@
 	<title></title>
  	<!-- Bootstrap -->
     <link rel="stylesheet" href="/resources/os/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/resources/os/jQuery-Upload-File/4.0.11/uploadfile.css" />
 </head>
 <body>
 	<table class="table" style="width:100%">
@@ -65,7 +66,12 @@
 		</tr>
 		<tr>
 			<td>
-				<button class="btn btn-success" id="btnNoticeReg">등록</button>
+				<div id="worshipFileUp" style="width: 250px;">등록</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button class="btn btn-success" id="btnRegWorship">저장</button>
 			</td>
 		</tr>
 	</table>
@@ -73,6 +79,9 @@
 	<content tag="script">
 	<script type="text/javascript" src="/resources/os/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/resources/os/ckeditor/ckeditor.js"></script> 
+	<script type="text/javascript" src="/resources/js/if/FileUpload.js"></script>
 	<script type="text/javascript" src="/resources/js/if/worship.js"></script>
+	<!-- uploadify -->
+	<script type="text/javascript" src="/resources/os/jQuery-Upload-File/4.0.11/jquery.uploadfile.js"></script>
 	</content>
 </body>
